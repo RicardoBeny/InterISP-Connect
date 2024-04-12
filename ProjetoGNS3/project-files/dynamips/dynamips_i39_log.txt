@@ -1,0 +1,36 @@
+Jan 22 13:20:09.701 HYPERVISOR: Release 0.2.14-x86/Windows (tag 2014092320)
+Jan 22 13:20:09.703 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 56168.
+Jan 22 13:20:10.198 HYPERVISOR: exec_cmd: hypervisor version 
+Jan 22 13:20:10.199 HYPERVISOR: exec_cmd: hypervisor uuid 
+Jan 22 13:20:10.199 HYPERVISOR: exec_cmd: hypervisor working_dir C:/Users/motas/Desktop/EI/3ºAno/1º Semestre/Projetos/TAR/Projeto\project-files\dynamips 
+Jan 22 13:20:10.199 GENERAL: working_dir=C:/Users/motas/Desktop/EI/3ºAno/1º Semestre/Projetos/TAR/Projeto\project-files\dynamips
+Jan 22 13:20:10.199 HYPERVISOR: exec_cmd: vm create R11 35 c7200 
+Jan 22 13:20:10.201 VM: VM R11 created.
+Jan 22 13:20:10.201 HYPERVISOR: exec_cmd: vm set_con_tcp_port R11 2013 
+Jan 22 13:20:10.202 HYPERVISOR: exec_cmd: c7200 get_mac_addr R11 
+Jan 22 13:20:10.202 HYPERVISOR: exec_cmd: vm get_status R11 
+Jan 22 13:20:10.202 HYPERVISOR: exec_cmd: vm slot_add_binding R11 0 0 C7200-IO-FE 
+Jan 22 13:20:10.202 HYPERVISOR: exec_cmd: vm get_status R11 
+Jan 22 13:20:10.202 HYPERVISOR: exec_cmd: vm set_idle_pc R11 0x60189224 
+Jan 22 13:20:10.203 HYPERVISOR: exec_cmd: vm get_status R11 
+Jan 22 13:20:10.203 HYPERVISOR: exec_cmd: vm slot_remove_binding R11 0 0 
+Jan 22 13:20:10.203 HYPERVISOR: exec_cmd: vm get_status R11 
+Jan 22 13:20:10.203 HYPERVISOR: exec_cmd: vm slot_add_binding R11 0 0 C7200-IO-2FE 
+Jan 22 13:20:10.204 HYPERVISOR: exec_cmd: vm set_ios R11 C:\Users\motas\GNS3\images\IOS\c7200-adventerprisek9-mz.152-4.M10.image 
+Jan 22 13:20:10.204 HYPERVISOR: exec_cmd: vm get_status R11 
+Jan 22 13:20:10.204 HYPERVISOR: exec_cmd: vm slot_add_binding R11 2 0 PA-2FE-TX 
+Jan 22 13:20:10.204 HYPERVISOR: exec_cmd: vm get_status R11 
+Jan 22 13:20:10.204 HYPERVISOR: exec_cmd: vm slot_add_binding R11 1 0 PA-2FE-TX 
+Jan 22 13:20:10.204 HYPERVISOR: exec_cmd: vm set_nvram R11 512 
+Jan 22 13:20:10.205 HYPERVISOR: exec_cmd: vm set_exec_area R11 64 
+Jan 22 13:20:10.205 HYPERVISOR: exec_cmd: vm set_disk0 R11 0 
+Jan 22 13:20:10.207 HYPERVISOR: exec_cmd: vm set_config R11 configs/i35_startup-config.cfg 
+Jan 22 13:20:10.208 HYPERVISOR: exec_cmd: vm set_ghost_status R11 2 
+Jan 22 13:20:10.208 HYPERVISOR: exec_cmd: vm set_ghost_file R11 c7200-adventerprisek9-mz.152-4.M10.image-256.ghost 
+Jan 22 13:20:14.837 HYPERVISOR: exec_cmd: vm get_status R11 
+Jan 22 13:20:14.838 HYPERVISOR: exec_cmd: vm extract_config R11 
+Jan 22 13:20:14.839 HYPERVISOR: exec_cmd: vm delete R11 
+Jan 22 13:20:14.839 VM: VM R11 destroyed.
+Jan 22 13:20:14.840 HYPERVISOR: exec_cmd: hypervisor stop 
+Jan 22 13:20:15.295 HYPERVISOR: Stopped.
+Jan 22 13:20:15.295 GENERAL: reset done.

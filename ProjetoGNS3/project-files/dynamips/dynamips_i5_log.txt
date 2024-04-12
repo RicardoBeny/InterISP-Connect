@@ -1,0 +1,62 @@
+Jan 22 11:20:36.589 HYPERVISOR: Release 0.2.14-x86/Windows (tag 2014092320)
+Jan 22 11:20:36.590 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 55512.
+Jan 22 11:20:37.049 HYPERVISOR: exec_cmd: hypervisor version 
+Jan 22 11:20:37.051 HYPERVISOR: exec_cmd: hypervisor uuid 
+Jan 22 11:20:37.052 HYPERVISOR: exec_cmd: hypervisor working_dir C:/Users/motas/Desktop/EI/3ºAno/1º Semestre/Projetos/TAR/Projeto\project-files\dynamips 
+Jan 22 11:20:37.052 GENERAL: working_dir=C:/Users/motas/Desktop/EI/3ºAno/1º Semestre/Projetos/TAR/Projeto\project-files\dynamips
+Jan 22 11:20:37.053 HYPERVISOR: exec_cmd: vm create R5 5 c7200 
+Jan 22 11:20:37.057 VM: VM R5 created.
+Jan 22 11:20:37.066 HYPERVISOR: exec_cmd: vm set_con_tcp_port R5 2006 
+Jan 22 11:20:37.119 HYPERVISOR: exec_cmd: c7200 get_mac_addr R5 
+Jan 22 11:20:37.122 HYPERVISOR: exec_cmd: vm get_status R5 
+Jan 22 11:20:37.123 HYPERVISOR: exec_cmd: vm slot_add_binding R5 0 0 C7200-IO-FE 
+Jan 22 11:20:37.126 HYPERVISOR: exec_cmd: vm get_status R5 
+Jan 22 11:20:37.131 HYPERVISOR: exec_cmd: vm slot_remove_binding R5 0 0 
+Jan 22 11:20:37.132 HYPERVISOR: exec_cmd: vm get_status R5 
+Jan 22 11:20:37.133 HYPERVISOR: exec_cmd: vm slot_add_binding R5 0 0 C7200-IO-2FE 
+Jan 22 11:20:37.134 HYPERVISOR: exec_cmd: vm set_ios R5 C:\Users\motas\GNS3\images\IOS\c7200-adventerprisek9-mz.152-4.M10.image 
+Jan 22 11:20:37.136 HYPERVISOR: exec_cmd: vm set_nvram R5 512 
+Jan 22 11:20:37.137 HYPERVISOR: exec_cmd: vm set_exec_area R5 64 
+Jan 22 11:20:37.139 HYPERVISOR: exec_cmd: vm get_status R5 
+Jan 22 11:20:37.141 HYPERVISOR: exec_cmd: vm set_idle_pc R5 0x60189224 
+Jan 22 11:20:37.142 HYPERVISOR: exec_cmd: c7200 set_mac_addr R5 ca05.0aa8.0000 
+Jan 22 11:20:37.143 HYPERVISOR: exec_cmd: vm get_status R5 
+Jan 22 11:20:37.144 HYPERVISOR: exec_cmd: vm slot_add_binding R5 2 0 PA-2FE-TX 
+Jan 22 11:20:37.145 HYPERVISOR: exec_cmd: vm get_status R5 
+Jan 22 11:20:37.145 HYPERVISOR: exec_cmd: vm slot_add_binding R5 1 0 PA-2FE-TX 
+Jan 22 11:20:37.146 HYPERVISOR: exec_cmd: vm set_disk0 R5 0 
+Jan 22 11:20:37.148 HYPERVISOR: exec_cmd: vm set_config R5 configs/i5_startup-config.cfg 
+Jan 22 11:20:37.419 HYPERVISOR: exec_cmd: vm set_ghost_status R5 2 
+Jan 22 11:20:37.420 HYPERVISOR: exec_cmd: vm set_ghost_file R5 c7200-adventerprisek9-mz.152-4.M10.image-256.ghost 
+Jan 22 11:20:39.471 HYPERVISOR: exec_cmd: nio create_udp udp-f201bec8-9df0-471c-ab2e-c71d6d2f2717 10004 127.0.0.1 10005 
+Jan 22 11:20:39.472 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R5 0 1 udp-f201bec8-9df0-471c-ab2e-c71d6d2f2717 
+Jan 22 11:20:39.473 HYPERVISOR: exec_cmd: vm get_status R5 
+Jan 22 11:20:39.562 HYPERVISOR: exec_cmd: nio create_udp udp-2640c9ff-dc1c-4192-9165-399a8e0265db 10009 127.0.0.1 10008 
+Jan 22 11:20:39.573 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R5 0 0 udp-2640c9ff-dc1c-4192-9165-399a8e0265db 
+Jan 22 11:20:39.583 HYPERVISOR: exec_cmd: vm get_status R5 
+Jan 22 11:21:01.048 HYPERVISOR: exec_cmd: vm get_status R5 
+Jan 22 11:21:01.048 HYPERVISOR: exec_cmd: vm start R5 
+Jan 22 11:29:58.389 HYPERVISOR: exec_cmd: vm extract_config R5 
+Jan 22 11:29:59.184 HYPERVISOR: exec_cmd: vm extract_config R5 
+Jan 22 13:03:57.270 HYPERVISOR: exec_cmd: vm extract_config R5 
+Jan 22 13:04:02.000 HYPERVISOR: exec_cmd: vm extract_config R5 
+Jan 22 13:25:39.807 HYPERVISOR: exec_cmd: vm extract_config R5 
+Jan 22 13:25:40.959 HYPERVISOR: exec_cmd: vm extract_config R5 
+Jan 22 15:21:50.295 HYPERVISOR: exec_cmd: vm extract_config R5 
+Jan 22 15:26:08.385 HYPERVISOR: exec_cmd: vm extract_config R5 
+Jan 22 15:29:59.309 HYPERVISOR: exec_cmd: vm extract_config R5 
+Jan 22 15:30:00.251 HYPERVISOR: exec_cmd: vm extract_config R5 
+Jan 22 15:30:01.823 HYPERVISOR: exec_cmd: vm extract_config R5 
+Jan 22 15:30:02.993 HYPERVISOR: exec_cmd: vm extract_config R5 
+Jan 22 15:30:04.112 HYPERVISOR: exec_cmd: vm extract_config R5 
+Jan 22 15:30:04.995 HYPERVISOR: exec_cmd: vm extract_config R5 
+Jan 22 15:30:07.773 HYPERVISOR: exec_cmd: vm get_status R5 
+Jan 22 15:30:07.775 HYPERVISOR: exec_cmd: vm stop R5 
+Jan 22 15:30:07.988 VM: VM R5 shutdown.
+Jan 22 15:30:10.303 HYPERVISOR: exec_cmd: vm get_status R5 
+Jan 22 15:30:10.315 HYPERVISOR: exec_cmd: vm extract_config R5 
+Jan 22 15:30:10.417 HYPERVISOR: exec_cmd: vm delete R5 
+Jan 22 15:30:10.417 VM: VM R5 destroyed.
+Jan 22 15:30:10.445 HYPERVISOR: exec_cmd: hypervisor stop 
+Jan 22 15:30:10.758 HYPERVISOR: Stopped.
+Jan 22 15:30:10.758 GENERAL: reset done.

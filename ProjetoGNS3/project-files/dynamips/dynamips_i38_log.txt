@@ -1,0 +1,36 @@
+Jan 22 13:17:03.036 HYPERVISOR: Release 0.2.14-x86/Windows (tag 2014092320)
+Jan 22 13:17:03.037 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 56157.
+Jan 22 13:17:03.038 HYPERVISOR: exec_cmd: hypervisor version 
+Jan 22 13:17:03.038 HYPERVISOR: exec_cmd: hypervisor uuid 
+Jan 22 13:17:03.039 HYPERVISOR: exec_cmd: hypervisor working_dir C:/Users/motas/Desktop/EI/3ºAno/1º Semestre/Projetos/TAR/Projeto\project-files\dynamips 
+Jan 22 13:17:03.039 GENERAL: working_dir=C:/Users/motas/Desktop/EI/3ºAno/1º Semestre/Projetos/TAR/Projeto\project-files\dynamips
+Jan 22 13:17:03.039 HYPERVISOR: exec_cmd: vm create R35 3 c7200 
+Jan 22 13:17:03.041 VM: VM R35 created.
+Jan 22 13:17:03.041 HYPERVISOR: exec_cmd: vm set_con_tcp_port R35 2040 
+Jan 22 13:17:03.042 HYPERVISOR: exec_cmd: c7200 get_mac_addr R35 
+Jan 22 13:17:03.042 HYPERVISOR: exec_cmd: vm get_status R35 
+Jan 22 13:17:03.042 HYPERVISOR: exec_cmd: vm slot_add_binding R35 0 0 C7200-IO-FE 
+Jan 22 13:17:03.042 HYPERVISOR: exec_cmd: vm get_status R35 
+Jan 22 13:17:03.043 HYPERVISOR: exec_cmd: vm set_idle_pc R35 0x60189224 
+Jan 22 13:17:03.043 HYPERVISOR: exec_cmd: vm get_status R35 
+Jan 22 13:17:03.043 HYPERVISOR: exec_cmd: vm slot_remove_binding R35 0 0 
+Jan 22 13:17:03.043 HYPERVISOR: exec_cmd: vm get_status R35 
+Jan 22 13:17:03.043 HYPERVISOR: exec_cmd: vm slot_add_binding R35 0 0 C7200-IO-2FE 
+Jan 22 13:17:03.044 HYPERVISOR: exec_cmd: vm set_ios R35 C:\Users\motas\GNS3\images\IOS\c7200-adventerprisek9-mz.152-4.M10.image 
+Jan 22 13:17:03.044 HYPERVISOR: exec_cmd: vm get_status R35 
+Jan 22 13:17:03.044 HYPERVISOR: exec_cmd: vm slot_add_binding R35 2 0 PA-2FE-TX 
+Jan 22 13:17:03.045 HYPERVISOR: exec_cmd: vm get_status R35 
+Jan 22 13:17:03.045 HYPERVISOR: exec_cmd: vm slot_add_binding R35 1 0 PA-2FE-TX 
+Jan 22 13:17:03.045 HYPERVISOR: exec_cmd: vm set_nvram R35 512 
+Jan 22 13:17:03.045 HYPERVISOR: exec_cmd: vm set_exec_area R35 64 
+Jan 22 13:17:03.045 HYPERVISOR: exec_cmd: vm set_disk0 R35 0 
+Jan 22 13:17:03.049 HYPERVISOR: exec_cmd: vm set_config R35 configs/i3_startup-config.cfg 
+Jan 22 13:17:03.050 HYPERVISOR: exec_cmd: vm set_ghost_status R35 2 
+Jan 22 13:17:03.051 HYPERVISOR: exec_cmd: vm set_ghost_file R35 c7200-adventerprisek9-mz.152-4.M10.image-256.ghost 
+Jan 22 13:17:05.541 HYPERVISOR: exec_cmd: vm get_status R35 
+Jan 22 13:17:05.542 HYPERVISOR: exec_cmd: vm extract_config R35 
+Jan 22 13:17:05.543 HYPERVISOR: exec_cmd: vm delete R35 
+Jan 22 13:17:05.543 VM: VM R35 destroyed.
+Jan 22 13:17:05.545 HYPERVISOR: exec_cmd: hypervisor stop 
+Jan 22 13:17:05.590 HYPERVISOR: Stopped.
+Jan 22 13:17:05.590 GENERAL: reset done.

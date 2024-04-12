@@ -1,0 +1,59 @@
+Jan 22 11:20:38.225 HYPERVISOR: Release 0.2.14-x86/Windows (tag 2014092320)
+Jan 22 11:20:38.226 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 55554.
+Jan 22 11:20:38.710 HYPERVISOR: exec_cmd: hypervisor version 
+Jan 22 11:20:38.710 HYPERVISOR: exec_cmd: hypervisor uuid 
+Jan 22 11:20:38.711 HYPERVISOR: exec_cmd: hypervisor working_dir C:/Users/motas/Desktop/EI/3ºAno/1º Semestre/Projetos/TAR/Projeto\project-files\dynamips 
+Jan 22 11:20:38.711 GENERAL: working_dir=C:/Users/motas/Desktop/EI/3ºAno/1º Semestre/Projetos/TAR/Projeto\project-files\dynamips
+Jan 22 11:20:38.712 HYPERVISOR: exec_cmd: vm create R27 27 c7200 
+Jan 22 11:20:38.714 VM: VM R27 created.
+Jan 22 11:20:38.715 HYPERVISOR: exec_cmd: vm set_con_tcp_port R27 2032 
+Jan 22 11:20:38.715 HYPERVISOR: exec_cmd: c7200 get_mac_addr R27 
+Jan 22 11:20:38.715 HYPERVISOR: exec_cmd: vm get_status R27 
+Jan 22 11:20:38.716 HYPERVISOR: exec_cmd: vm slot_add_binding R27 0 0 C7200-IO-FE 
+Jan 22 11:20:38.717 HYPERVISOR: exec_cmd: vm get_status R27 
+Jan 22 11:20:38.717 HYPERVISOR: exec_cmd: vm slot_remove_binding R27 0 0 
+Jan 22 11:20:38.718 HYPERVISOR: exec_cmd: vm get_status R27 
+Jan 22 11:20:38.718 HYPERVISOR: exec_cmd: vm slot_add_binding R27 0 0 C7200-IO-2FE 
+Jan 22 11:20:38.719 HYPERVISOR: exec_cmd: vm set_ios R27 C:\Users\motas\GNS3\images\IOS\c7200-adventerprisek9-mz.152-4.M10.image 
+Jan 22 11:20:38.719 HYPERVISOR: exec_cmd: vm set_nvram R27 512 
+Jan 22 11:20:38.719 HYPERVISOR: exec_cmd: vm set_exec_area R27 64 
+Jan 22 11:20:38.720 HYPERVISOR: exec_cmd: vm get_status R27 
+Jan 22 11:20:38.720 HYPERVISOR: exec_cmd: vm set_idle_pc R27 0x60189224 
+Jan 22 11:20:38.721 HYPERVISOR: exec_cmd: c7200 set_mac_addr R27 ca1b.2390.0000 
+Jan 22 11:20:38.721 HYPERVISOR: exec_cmd: vm get_status R27 
+Jan 22 11:20:38.721 HYPERVISOR: exec_cmd: vm slot_add_binding R27 2 0 PA-2FE-TX 
+Jan 22 11:20:38.721 HYPERVISOR: exec_cmd: vm get_status R27 
+Jan 22 11:20:38.721 HYPERVISOR: exec_cmd: vm slot_add_binding R27 1 0 PA-2FE-TX 
+Jan 22 11:20:38.722 HYPERVISOR: exec_cmd: vm set_disk0 R27 0 
+Jan 22 11:20:38.723 HYPERVISOR: exec_cmd: vm set_config R27 configs/i27_startup-config.cfg 
+Jan 22 11:20:38.723 HYPERVISOR: exec_cmd: vm set_ghost_status R27 2 
+Jan 22 11:20:38.723 HYPERVISOR: exec_cmd: vm set_ghost_file R27 c7200-adventerprisek9-mz.152-4.M10.image-256.ghost 
+Jan 22 11:20:40.379 HYPERVISOR: exec_cmd: nio create_udp udp-d1bf364b-ae72-45fb-9a77-56e83a122efd 10052 127.0.0.1 10053 
+Jan 22 11:20:40.388 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R27 0 0 udp-d1bf364b-ae72-45fb-9a77-56e83a122efd 
+Jan 22 11:20:40.407 HYPERVISOR: exec_cmd: vm get_status R27 
+Jan 22 11:29:58.357 HYPERVISOR: exec_cmd: vm extract_config R27 
+Jan 22 11:29:59.164 HYPERVISOR: exec_cmd: vm extract_config R27 
+Jan 22 11:30:06.862 HYPERVISOR: exec_cmd: vm get_status R27 
+Jan 22 11:30:06.866 HYPERVISOR: exec_cmd: vm start R27 
+Jan 22 13:03:57.172 HYPERVISOR: exec_cmd: vm extract_config R27 
+Jan 22 13:04:01.981 HYPERVISOR: exec_cmd: vm extract_config R27 
+Jan 22 13:25:39.716 HYPERVISOR: exec_cmd: vm extract_config R27 
+Jan 22 13:25:40.926 HYPERVISOR: exec_cmd: vm extract_config R27 
+Jan 22 15:24:25.967 HYPERVISOR: exec_cmd: vm extract_config R27 
+Jan 22 15:26:08.341 HYPERVISOR: exec_cmd: vm extract_config R27 
+Jan 22 15:29:59.216 HYPERVISOR: exec_cmd: vm extract_config R27 
+Jan 22 15:30:00.201 HYPERVISOR: exec_cmd: vm extract_config R27 
+Jan 22 15:30:01.794 HYPERVISOR: exec_cmd: vm extract_config R27 
+Jan 22 15:30:02.957 HYPERVISOR: exec_cmd: vm extract_config R27 
+Jan 22 15:30:04.080 HYPERVISOR: exec_cmd: vm extract_config R27 
+Jan 22 15:30:04.940 HYPERVISOR: exec_cmd: vm extract_config R27 
+Jan 22 15:30:06.949 HYPERVISOR: exec_cmd: vm get_status R27 
+Jan 22 15:30:06.950 HYPERVISOR: exec_cmd: vm stop R27 
+Jan 22 15:30:07.121 VM: VM R27 shutdown.
+Jan 22 15:30:10.301 HYPERVISOR: exec_cmd: vm get_status R27 
+Jan 22 15:30:10.313 HYPERVISOR: exec_cmd: vm extract_config R27 
+Jan 22 15:30:10.346 HYPERVISOR: exec_cmd: vm delete R27 
+Jan 22 15:30:10.347 VM: VM R27 destroyed.
+Jan 22 15:30:10.438 HYPERVISOR: exec_cmd: hypervisor stop 
+Jan 22 15:30:10.912 HYPERVISOR: Stopped.
+Jan 22 15:30:10.912 GENERAL: reset done.

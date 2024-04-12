@@ -1,0 +1,65 @@
+Jan 22 11:20:38.903 HYPERVISOR: Release 0.2.14-x86/Windows (tag 2014092320)
+Jan 22 11:20:38.904 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 55569.
+Jan 22 11:20:39.400 HYPERVISOR: exec_cmd: hypervisor version 
+Jan 22 11:20:39.405 HYPERVISOR: exec_cmd: hypervisor uuid 
+Jan 22 11:20:39.435 HYPERVISOR: exec_cmd: hypervisor working_dir C:/Users/motas/Desktop/EI/3ºAno/1º Semestre/Projetos/TAR/Projeto\project-files\dynamips 
+Jan 22 11:20:39.435 GENERAL: working_dir=C:/Users/motas/Desktop/EI/3ºAno/1º Semestre/Projetos/TAR/Projeto\project-files\dynamips
+Jan 22 11:20:39.461 HYPERVISOR: exec_cmd: vm create R34 34 c7200 
+Jan 22 11:20:39.463 VM: VM R34 created.
+Jan 22 11:20:39.472 HYPERVISOR: exec_cmd: vm set_con_tcp_port R34 2039 
+Jan 22 11:20:39.472 HYPERVISOR: exec_cmd: c7200 get_mac_addr R34 
+Jan 22 11:20:39.474 HYPERVISOR: exec_cmd: vm get_status R34 
+Jan 22 11:20:39.491 HYPERVISOR: exec_cmd: vm slot_add_binding R34 0 0 C7200-IO-FE 
+Jan 22 11:20:39.492 HYPERVISOR: exec_cmd: vm get_status R34 
+Jan 22 11:20:39.492 HYPERVISOR: exec_cmd: vm slot_remove_binding R34 0 0 
+Jan 22 11:20:39.510 HYPERVISOR: exec_cmd: vm get_status R34 
+Jan 22 11:20:39.521 HYPERVISOR: exec_cmd: vm slot_add_binding R34 0 0 C7200-IO-2FE 
+Jan 22 11:20:39.523 HYPERVISOR: exec_cmd: vm set_ios R34 C:\Users\motas\GNS3\images\IOS\c7200-adventerprisek9-mz.152-4.M10.image 
+Jan 22 11:20:39.542 HYPERVISOR: exec_cmd: vm set_nvram R34 512 
+Jan 22 11:20:39.553 HYPERVISOR: exec_cmd: vm set_exec_area R34 64 
+Jan 22 11:20:39.572 HYPERVISOR: exec_cmd: vm get_status R34 
+Jan 22 11:20:39.582 HYPERVISOR: exec_cmd: vm set_idle_pc R34 0x60189224 
+Jan 22 11:20:39.592 HYPERVISOR: exec_cmd: c7200 set_mac_addr R34 ca22.4b68.0000 
+Jan 22 11:20:39.610 HYPERVISOR: exec_cmd: vm get_status R34 
+Jan 22 11:20:39.629 HYPERVISOR: exec_cmd: vm slot_add_binding R34 2 0 PA-2FE-TX 
+Jan 22 11:20:39.649 HYPERVISOR: exec_cmd: vm get_status R34 
+Jan 22 11:20:39.674 HYPERVISOR: exec_cmd: vm slot_add_binding R34 1 0 PA-2FE-TX 
+Jan 22 11:20:39.684 HYPERVISOR: exec_cmd: vm set_disk0 R34 0 
+Jan 22 11:20:39.686 HYPERVISOR: exec_cmd: vm set_config R34 configs/i34_startup-config.cfg 
+Jan 22 11:20:39.695 HYPERVISOR: exec_cmd: vm set_ghost_status R34 2 
+Jan 22 11:20:39.714 HYPERVISOR: exec_cmd: vm set_ghost_file R34 c7200-adventerprisek9-mz.152-4.M10.image-256.ghost 
+Jan 22 11:20:40.924 HYPERVISOR: exec_cmd: nio create_udp udp-35f9b99b-7421-4120-b96c-2fd355d235d6 10079 127.0.0.1 10078 
+Jan 22 11:20:40.941 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R34 0 0 udp-35f9b99b-7421-4120-b96c-2fd355d235d6 
+Jan 22 11:20:40.950 HYPERVISOR: exec_cmd: vm get_status R34 
+Jan 22 11:20:40.991 HYPERVISOR: exec_cmd: nio create_udp udp-e79ec750-1bcc-4b3a-9e59-1794b185e6d5 10080 127.0.0.1 10081 
+Jan 22 11:20:41.010 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R34 1 0 udp-e79ec750-1bcc-4b3a-9e59-1794b185e6d5 
+Jan 22 11:20:41.011 HYPERVISOR: exec_cmd: vm get_status R34 
+Jan 22 11:20:41.037 HYPERVISOR: exec_cmd: nio create_udp udp-5c2b5f5b-a40f-4ec5-954c-b5452cc83079 10082 127.0.0.1 10083 
+Jan 22 11:20:41.073 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R34 0 1 udp-5c2b5f5b-a40f-4ec5-954c-b5452cc83079 
+Jan 22 11:20:41.094 HYPERVISOR: exec_cmd: vm get_status R34 
+Jan 22 11:21:17.535 HYPERVISOR: exec_cmd: vm get_status R34 
+Jan 22 11:21:17.536 HYPERVISOR: exec_cmd: vm start R34 
+Jan 22 11:29:58.333 HYPERVISOR: exec_cmd: vm extract_config R34 
+Jan 22 11:29:59.153 HYPERVISOR: exec_cmd: vm extract_config R34 
+Jan 22 13:03:57.141 HYPERVISOR: exec_cmd: vm extract_config R34 
+Jan 22 13:04:01.972 HYPERVISOR: exec_cmd: vm extract_config R34 
+Jan 22 13:25:39.674 HYPERVISOR: exec_cmd: vm extract_config R34 
+Jan 22 13:25:40.907 HYPERVISOR: exec_cmd: vm extract_config R34 
+Jan 22 15:22:57.748 HYPERVISOR: exec_cmd: vm extract_config R34 
+Jan 22 15:26:08.316 HYPERVISOR: exec_cmd: vm extract_config R34 
+Jan 22 15:29:59.173 HYPERVISOR: exec_cmd: vm extract_config R34 
+Jan 22 15:30:00.181 HYPERVISOR: exec_cmd: vm extract_config R34 
+Jan 22 15:30:01.780 HYPERVISOR: exec_cmd: vm extract_config R34 
+Jan 22 15:30:02.941 HYPERVISOR: exec_cmd: vm extract_config R34 
+Jan 22 15:30:04.069 HYPERVISOR: exec_cmd: vm extract_config R34 
+Jan 22 15:30:04.920 HYPERVISOR: exec_cmd: vm extract_config R34 
+Jan 22 15:30:06.463 HYPERVISOR: exec_cmd: vm get_status R34 
+Jan 22 15:30:06.465 HYPERVISOR: exec_cmd: vm stop R34 
+Jan 22 15:30:06.720 VM: VM R34 shutdown.
+Jan 22 15:30:10.305 HYPERVISOR: exec_cmd: vm get_status R34 
+Jan 22 15:30:10.321 HYPERVISOR: exec_cmd: vm extract_config R34 
+Jan 22 15:30:10.382 HYPERVISOR: exec_cmd: vm delete R34 
+Jan 22 15:30:10.382 VM: VM R34 destroyed.
+Jan 22 15:30:10.440 HYPERVISOR: exec_cmd: hypervisor stop 
+Jan 22 15:30:10.896 HYPERVISOR: Stopped.
+Jan 22 15:30:10.896 GENERAL: reset done.
