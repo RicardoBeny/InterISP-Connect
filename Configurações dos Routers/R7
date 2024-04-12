@@ -1,0 +1,242 @@
+
+!
+! Last configuration change at 14:11:16 UTC Mon Jan 22 2024
+upgrade fpd auto
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R7
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+!
+class-map match-any GOLD
+ match ip precedence 5 
+class-map match-any ACCESS
+ match access-group name ICMP
+class-map match-all TRANSFER
+ match protocol tftp
+class-map match-any BRONZE
+ match ip precedence 2 
+class-map match-any SILVER
+ match ip precedence 3 
+class-map match-any CONSOLE
+ match access-group name TELNET
+ match access-group name SSH
+!
+policy-map QOSR7
+ class GOLD
+  priority percent 10
+ class SILVER
+  bandwidth percent 20 
+ class BRONZE
+  bandwidth percent 40 
+ class class-default
+  fair-queue
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 131.0.0.7 255.255.255.255
+ ip ospf 1 area 0
+ ipv6 address FE80::7 link-local
+ ipv6 address 2221:2946:2::7/128
+ ipv6 ospf 1 area 0
+!
+interface FastEthernet0/0
+ ip address 131.0.1.5 255.255.255.252
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
+ ipv6 address FE80::7 link-local
+ ipv6 address 2221:2946:2:2::1/64
+ ipv6 ospf 1 area 0
+ service-policy output QOSR7
+!
+interface FastEthernet0/1
+ ip address 131.0.1.1 255.255.255.252
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
+ ipv6 address FE80::7 link-local
+ ipv6 address 2221:2946:2:1::1/64
+ ipv6 ospf 1 area 0
+ service-policy output QOSR7
+!
+interface FastEthernet1/0
+ ip address 131.0.1.29 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address FE80::7 link-local
+ ipv6 address 2221:2946:2:8::1/64
+!
+interface FastEthernet1/1
+ ip address 131.0.1.37 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address FE80::7 link-local
+ ipv6 address 2221:2946:2:10::1/64
+!
+interface FastEthernet2/0
+ ip address 130.0.1.134 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address FE80::7 link-local
+ ipv6 address 2221:2946:1:34::2/64
+!
+interface FastEthernet2/1
+ ip address 130.0.1.42 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address FE80::7 link-local
+ ipv6 address 2221:2946:1:11::2/64
+!
+router ospf 1
+ router-id 7.7.7.7
+ passive-interface Loopback0
+ network 131.0.1.0 0.0.0.3 area 0
+ network 131.0.1.4 0.0.0.3 area 0
+!
+router bgp 2001
+ bgp router-id 7.7.7.7
+ bgp log-neighbor-changes
+ neighbor 2221:2946:1:11::1 remote-as 1000
+ neighbor 2221:2946:1:34::1 remote-as 1000
+ neighbor 2221:2946:2::5 remote-as 2001
+ neighbor 2221:2946:2::5 update-source Loopback0
+ neighbor 2221:2946:2:8::2 remote-as 3001
+ neighbor 2221:2946:2:10::2 remote-as 3002
+ neighbor 130.0.1.41 remote-as 1000
+ neighbor 130.0.1.133 remote-as 1000
+ neighbor 131.0.0.5 remote-as 2001
+ neighbor 131.0.0.5 update-source Loopback0
+ neighbor 131.0.1.30 remote-as 3001
+ neighbor 131.0.1.38 remote-as 3002
+ !
+ address-family ipv4
+  redistribute static
+  no neighbor 2221:2946:1:11::1 activate
+  no neighbor 2221:2946:1:34::1 activate
+  no neighbor 2221:2946:2::5 activate
+  no neighbor 2221:2946:2:8::2 activate
+  no neighbor 2221:2946:2:10::2 activate
+  neighbor 130.0.1.41 activate
+  neighbor 130.0.1.133 activate
+  neighbor 130.0.1.133 route-map LOCPREF_120 in
+  neighbor 131.0.0.5 activate
+  neighbor 131.0.0.5 next-hop-self
+  neighbor 131.0.1.30 activate
+  neighbor 131.0.1.30 route-map MED_100 out
+  neighbor 131.0.1.38 activate
+  neighbor 131.0.1.38 route-map MED_100 out
+ exit-address-family
+ !
+ address-family ipv6
+  redistribute static
+  neighbor 2221:2946:1:11::1 activate
+  neighbor 2221:2946:1:34::1 activate
+  neighbor 2221:2946:1:34::1 route-map LOCPREF_120 in
+  neighbor 2221:2946:2::5 activate
+  neighbor 2221:2946:2::5 next-hop-self
+  neighbor 2221:2946:2:8::2 activate
+  neighbor 2221:2946:2:8::2 route-map MED_100 out
+  neighbor 2221:2946:2:10::2 activate
+  neighbor 2221:2946:2:10::2 route-map MED_100 out
+ exit-address-family
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+ip as-path access-list 1 permit _1000$
+ip as-path access-list 1 permit _2000$
+ip as-path access-list 1 permit _2001$
+!
+ip route 131.0.0.0 255.255.0.0 Null0
+!
+no cdp log mismatch duplex
+ipv6 route 2221:2946:2::/48 Null0
+ipv6 router ospf 1
+ router-id 7.7.7.7
+ passive-interface Loopback0
+!
+!
+route-map MED_100 permit 10
+ match as-path 1
+ set metric 100
+!
+route-map LOCPREF_120 permit 10
+ match as-path 1
+ set local-preference 120
+!
+!
+!
+control-plane
+!
+!
+!
+mgcp profile default
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+ transport input all
+!
+!
+end

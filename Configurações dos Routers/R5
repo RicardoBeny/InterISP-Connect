@@ -1,0 +1,226 @@
+
+!
+upgrade fpd auto
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R5
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+no ip icmp rate-limit unreachable
+!
+!
+!
+ip vrf A
+ rd 2001:1
+ route-target export 2001:1
+ route-target import 2001:1
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+mpls label range 2000 2999
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+!
+class-map match-any GOLD
+ match ip precedence 5 
+class-map match-any BRONZE
+ match ip precedence 2 
+ match mpls experimental topmost 2 
+class-map match-any SILVER
+ match ip precedence 3 
+ match mpls experimental topmost 3 
+!
+policy-map QOSR5
+ class GOLD
+  priority percent 10
+ class SILVER
+  bandwidth percent 20 
+ class BRONZE
+  bandwidth percent 40 
+ class class-default
+  fair-queue
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 131.0.0.5 255.255.255.255
+ ip ospf 1 area 0
+ ipv6 address FE80::5 link-local
+ ipv6 address 2221:2946:2::5/128
+ ipv6 ospf 1 area 0
+!
+interface FastEthernet0/0
+ ip address 131.0.1.14 255.255.255.252
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
+ ipv6 address FE80::5 link-local
+ ipv6 address 2221:2946:2:4::2/64
+ mpls ip
+ ipv6 ospf 1 area 0
+ service-policy output QOSR5
+!
+interface FastEthernet0/1
+ ip address 131.0.1.9 255.255.255.252
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
+ ipv6 address FE80::5 link-local
+ ipv6 address 2221:2946:2:3::1/64
+ mpls ip
+ ipv6 ospf 1 area 0
+ service-policy output QOSR5
+!
+interface FastEthernet1/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet1/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet2/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet2/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+router ospf 1
+ router-id 5.5.5.5
+ passive-interface Loopback0
+ network 131.0.1.8 0.0.0.3 area 0
+ network 131.0.1.12 0.0.0.3 area 0
+!
+router bgp 2001
+ bgp router-id 5.5.5.5
+ bgp log-neighbor-changes
+ neighbor 2221:2946:2::4 remote-as 2001
+ neighbor 2221:2946:2::4 update-source Loopback0
+ neighbor 2221:2946:2::6 remote-as 2001
+ neighbor 2221:2946:2::6 update-source Loopback0
+ neighbor 2221:2946:2::7 remote-as 2001
+ neighbor 2221:2946:2::7 update-source Loopback0
+ neighbor 131.0.0.4 remote-as 2001
+ neighbor 131.0.0.4 update-source Loopback0
+ neighbor 131.0.0.6 remote-as 2001
+ neighbor 131.0.0.6 update-source Loopback0
+ neighbor 131.0.0.7 remote-as 2001
+ neighbor 131.0.0.7 update-source Loopback0
+ !
+ address-family ipv4
+  no neighbor 2221:2946:2::4 activate
+  no neighbor 2221:2946:2::6 activate
+  no neighbor 2221:2946:2::7 activate
+  neighbor 131.0.0.4 activate
+  neighbor 131.0.0.4 route-reflector-client
+  neighbor 131.0.0.6 activate
+  neighbor 131.0.0.6 route-reflector-client
+  neighbor 131.0.0.7 activate
+  neighbor 131.0.0.7 route-reflector-client
+ exit-address-family
+ !
+ address-family vpnv4
+  neighbor 131.0.0.4 activate
+  neighbor 131.0.0.4 send-community extended
+  neighbor 131.0.0.4 route-reflector-client
+  neighbor 131.0.0.6 activate
+  neighbor 131.0.0.6 send-community extended
+  neighbor 131.0.0.6 route-reflector-client
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2221:2946:2::4 activate
+  neighbor 2221:2946:2::4 route-reflector-client
+  neighbor 2221:2946:2::6 activate
+  neighbor 2221:2946:2::6 route-reflector-client
+  neighbor 2221:2946:2::7 activate
+  neighbor 2221:2946:2::7 route-reflector-client
+ exit-address-family
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+no cdp log mismatch duplex
+ipv6 router ospf 1
+ router-id 5.5.5.5
+ passive-interface Loopback0
+!
+!
+!
+!
+control-plane
+!
+!
+!
+mgcp profile default
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+ transport input all
+!
+!
+end

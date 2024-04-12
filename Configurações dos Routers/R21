@@ -1,0 +1,184 @@
+
+!
+upgrade fpd auto
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R21
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 130.0.0.21 255.255.255.255
+ ip ospf 1 area 0
+ ipv6 address FE80::21 link-local
+ ipv6 address 2221:2946:1::21/128
+ ipv6 ospf 1 area 0
+!
+interface FastEthernet0/0
+ ip address 130.0.1.85 255.255.255.252
+ ip ospf 1 area 4
+ duplex auto
+ speed auto
+ ipv6 address FE80::21 link-local
+ ipv6 address 2221:2946:1:22::1/64
+ ipv6 ospf 1 area 4
+!
+interface FastEthernet0/1
+ ip address 130.0.1.89 255.255.255.252
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
+ ipv6 address FE80::21 link-local
+ ipv6 address 2221:2946:1:23::1/64
+ ipv6 ospf 1 area 0
+!
+interface FastEthernet1/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet1/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet2/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet2/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+router ospf 1
+ router-id 21.21.21.21
+ area 4 stub no-summary
+ passive-interface Loopback0
+ network 130.0.1.84 0.0.0.3 area 4
+ network 130.0.1.88 0.0.0.3 area 0
+!
+router bgp 4
+ bgp router-id 21.21.21.21
+ bgp log-neighbor-changes
+ bgp confederation identifier 1000
+ bgp confederation peers 7 
+ neighbor 2221:2946:1::18 remote-as 7
+ neighbor 2221:2946:1::18 disable-connected-check
+ neighbor 2221:2946:1::18 update-source Loopback0
+ neighbor 2221:2946:1::23 remote-as 4
+ neighbor 2221:2946:1::23 update-source Loopback0
+ neighbor 130.0.0.18 remote-as 7
+ neighbor 130.0.0.18 disable-connected-check
+ neighbor 130.0.0.18 update-source Loopback0
+ neighbor 130.0.0.23 remote-as 4
+ neighbor 130.0.0.23 update-source Loopback0
+ !
+ address-family ipv4
+  no neighbor 2221:2946:1::18 activate
+  no neighbor 2221:2946:1::23 activate
+  neighbor 130.0.0.18 activate
+  neighbor 130.0.0.18 next-hop-self
+  neighbor 130.0.0.23 activate
+  neighbor 130.0.0.23 next-hop-self
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2221:2946:1::18 activate
+  neighbor 2221:2946:1::18 next-hop-self
+  neighbor 2221:2946:1::23 activate
+  neighbor 2221:2946:1::23 next-hop-self
+ exit-address-family
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+no cdp log mismatch duplex
+ipv6 router ospf 1
+ router-id 21.21.21.21
+ area 4 stub no-summary
+ passive-interface Loopback0
+!
+!
+!
+!
+control-plane
+!
+!
+!
+mgcp profile default
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+ transport input all
+!
+!
+end

@@ -1,0 +1,230 @@
+!
+
+!
+upgrade fpd auto
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R18
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 130.0.0.18 255.255.255.255
+ ip ospf 1 area 0
+ ipv6 address FE80::18 link-local
+ ipv6 address 2221:2946:1::18/128
+ ipv6 ospf 1 area 0
+!
+interface FastEthernet0/0
+ ip address 130.0.1.93 255.255.255.252
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
+ ipv6 address FE80::18 link-local
+ ipv6 address 2221:2946:1:24::1/64
+ ipv6 ospf 1 area 0
+!
+interface FastEthernet0/1
+ ip address 130.0.1.90 255.255.255.252
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
+ ipv6 address FE80::18 link-local
+ ipv6 address 2221:2946:1:23::2/64
+ ipv6 ospf 1 area 0
+!
+interface FastEthernet1/0
+ ip address 130.0.1.98 255.255.255.252
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
+ ipv6 address FE80::18 link-local
+ ipv6 address 2221:2946:1:25::2/64
+ ipv6 ospf 1 area 0
+!
+interface FastEthernet1/1
+ ip address 130.0.1.69 255.255.255.252
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
+ ipv6 address FE80::18 link-local
+ ipv6 address 2221:2946:1:18::1/64
+ ipv6 ospf 1 area 0
+!
+interface FastEthernet2/0
+ ip address 130.0.1.61 255.255.255.252
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
+ ipv6 address FE80::18 link-local
+ ipv6 address 2221:2946:1:16::1/64
+ ipv6 ospf 1 area 0
+!
+interface FastEthernet2/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+router ospf 1
+ router-id 18.18.18.18
+ passive-interface Loopback0
+ network 130.0.1.60 0.0.0.3 area 0
+ network 130.0.1.68 0.0.0.3 area 0
+ network 130.0.1.88 0.0.0.3 area 0
+ network 130.0.1.92 0.0.0.3 area 0
+ network 130.0.1.96 0.0.0.3 area 0
+!
+router bgp 7
+ bgp router-id 18.18.18.18
+ bgp log-neighbor-changes
+ bgp confederation identifier 1000
+ bgp confederation peers 1 2 3 4 5 
+ neighbor 2221:2946:1::10 remote-as 3
+ neighbor 2221:2946:1::10 disable-connected-check
+ neighbor 2221:2946:1::10 update-source Loopback0
+ neighbor 2221:2946:1::16 remote-as 1
+ neighbor 2221:2946:1::16 disable-connected-check
+ neighbor 2221:2946:1::16 update-source Loopback0
+ neighbor 2221:2946:1::19 remote-as 2
+ neighbor 2221:2946:1::19 disable-connected-check
+ neighbor 2221:2946:1::19 update-source Loopback0
+ neighbor 2221:2946:1::21 remote-as 4
+ neighbor 2221:2946:1::21 disable-connected-check
+ neighbor 2221:2946:1::21 update-source Loopback0
+ neighbor 2221:2946:1::25 remote-as 5
+ neighbor 2221:2946:1::25 disable-connected-check
+ neighbor 2221:2946:1::25 update-source Loopback0
+ neighbor 130.0.0.10 remote-as 3
+ neighbor 130.0.0.10 disable-connected-check
+ neighbor 130.0.0.10 update-source Loopback0
+ neighbor 130.0.0.16 remote-as 1
+ neighbor 130.0.0.16 disable-connected-check
+ neighbor 130.0.0.16 update-source Loopback0
+ neighbor 130.0.0.19 remote-as 2
+ neighbor 130.0.0.19 disable-connected-check
+ neighbor 130.0.0.19 update-source Loopback0
+ neighbor 130.0.0.21 remote-as 4
+ neighbor 130.0.0.21 disable-connected-check
+ neighbor 130.0.0.21 update-source Loopback0
+ neighbor 130.0.0.25 remote-as 5
+ neighbor 130.0.0.25 disable-connected-check
+ neighbor 130.0.0.25 update-source Loopback0
+ !
+ address-family ipv4
+  no neighbor 2221:2946:1::10 activate
+  no neighbor 2221:2946:1::16 activate
+  no neighbor 2221:2946:1::19 activate
+  no neighbor 2221:2946:1::21 activate
+  no neighbor 2221:2946:1::25 activate
+  neighbor 130.0.0.10 activate
+  neighbor 130.0.0.10 next-hop-self
+  neighbor 130.0.0.16 activate
+  neighbor 130.0.0.16 next-hop-self
+  neighbor 130.0.0.19 activate
+  neighbor 130.0.0.19 next-hop-self
+  neighbor 130.0.0.21 activate
+  neighbor 130.0.0.21 next-hop-self
+  neighbor 130.0.0.25 activate
+  neighbor 130.0.0.25 next-hop-self
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2221:2946:1::10 activate
+  neighbor 2221:2946:1::10 next-hop-self
+  neighbor 2221:2946:1::16 activate
+  neighbor 2221:2946:1::16 next-hop-self
+  neighbor 2221:2946:1::19 activate
+  neighbor 2221:2946:1::19 next-hop-self
+  neighbor 2221:2946:1::21 activate
+  neighbor 2221:2946:1::21 next-hop-self
+  neighbor 2221:2946:1::25 activate
+  neighbor 2221:2946:1::25 next-hop-self
+ exit-address-family
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+no cdp log mismatch duplex
+ipv6 router ospf 1
+ router-id 18.18.18.18
+ passive-interface Loopback0
+!
+!
+!
+!
+control-plane
+!
+!
+!
+mgcp profile default
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+ transport input all
+!
+!
+end

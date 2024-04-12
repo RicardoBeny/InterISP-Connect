@@ -1,0 +1,188 @@
+
+!
+upgrade fpd auto
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R14
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 133.0.0.14 255.255.255.255
+ ip ospf 1 area 0
+ ipv6 address FE80::14 link-local
+ ipv6 address 2221:2946:4::14/128
+ ipv6 ospf 1 area 0
+!
+interface FastEthernet0/0
+ ip address 131.0.1.34 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address FE80::14 link-local
+ ipv6 address 2221:2946:2:9::2/64
+!
+interface FastEthernet0/1
+ ip address 131.0.1.30 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address FE80::14 link-local
+ ipv6 address 2221:2946:2:8::2/64
+!
+interface FastEthernet1/0
+ ip address 132.0.1.6 255.255.255.252
+ duplex auto
+ speed auto
+ ipv6 address FE80::14 link-local
+ ipv6 address 2221:2946:3:2::2/64
+!
+interface FastEthernet1/1
+ ip address 133.0.1.1 255.255.255.252
+ ip ospf 1 area 0
+ duplex auto
+ speed auto
+ ipv6 address FE80::14 link-local
+ ipv6 address 2221:2946:4:1::1/64
+ ipv6 ospf 1 area 0
+!
+interface FastEthernet2/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet2/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+router ospf 1
+ router-id 14.14.14.14
+ passive-interface Loopback0
+ network 133.0.1.0 0.0.0.3 area 0
+!
+router bgp 3001
+ bgp router-id 14.14.14.14
+ bgp log-neighbor-changes
+ neighbor 2221:2946:2:8::1 remote-as 2001
+ neighbor 2221:2946:2:9::1 remote-as 2001
+ neighbor 2221:2946:3:2::1 remote-as 2002
+ neighbor 2221:2946:4::32 remote-as 3001
+ neighbor 2221:2946:4::32 update-source Loopback0
+ neighbor 131.0.1.29 remote-as 2001
+ neighbor 131.0.1.33 remote-as 2001
+ neighbor 132.0.1.5 remote-as 2002
+ neighbor 133.0.0.32 remote-as 3001
+ neighbor 133.0.0.32 update-source Loopback0
+ !
+ address-family ipv4
+  redistribute static
+  no neighbor 2221:2946:2:8::1 activate
+  no neighbor 2221:2946:2:9::1 activate
+  no neighbor 2221:2946:3:2::1 activate
+  no neighbor 2221:2946:4::32 activate
+  neighbor 131.0.1.29 activate
+  neighbor 131.0.1.33 activate
+  neighbor 132.0.1.5 activate
+  neighbor 133.0.0.32 activate
+  neighbor 133.0.0.32 next-hop-self
+ exit-address-family
+ !
+ address-family ipv6
+  redistribute static
+  neighbor 2221:2946:2:8::1 activate
+  neighbor 2221:2946:2:9::1 activate
+  neighbor 2221:2946:3:2::1 activate
+  neighbor 2221:2946:4::32 activate
+  neighbor 2221:2946:4::32 next-hop-self
+ exit-address-family
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+ip route 131.0.0.0 255.255.0.0 131.0.1.33
+ip route 133.0.0.0 255.255.0.0 Null0
+!
+no cdp log mismatch duplex
+ipv6 route 2221:2946:4::/48 Null0
+ipv6 router ospf 1
+ router-id 14.14.14.14
+ passive-interface Loopback0
+!
+!
+!
+!
+control-plane
+!
+!
+!
+mgcp profile default
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+ transport input all
+!
+!
+end

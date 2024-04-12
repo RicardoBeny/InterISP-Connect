@@ -1,0 +1,172 @@
+
+!
+upgrade fpd auto
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R23
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 130.0.0.23 255.255.255.255
+ ip ospf 1 area 4
+ ipv6 address FE80::23 link-local
+ ipv6 address 2221:2946:1::23/128
+ ipv6 ospf 1 area 4
+!
+interface FastEthernet0/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ ip address 130.0.1.86 255.255.255.252
+ ip ospf 1 area 4
+ duplex auto
+ speed auto
+ ipv6 address FE80::23 link-local
+ ipv6 address 2221:2946:1:22::2/64
+ ipv6 ospf 1 area 4
+!
+interface FastEthernet1/0
+ ip address 130.0.1.81 255.255.255.252
+ ip ospf 1 area 4
+ duplex auto
+ speed auto
+ ipv6 address FE80::23 link-local
+ ipv6 address 2221:2946:1:21::1/64
+ ipv6 ospf 1 area 4
+!
+interface FastEthernet1/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet2/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet2/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+router ospf 1
+ router-id 23.23.23.23
+ area 4 stub no-summary
+ passive-interface Loopback0
+ network 130.0.1.80 0.0.0.3 area 4
+ network 130.0.1.84 0.0.0.3 area 4
+!
+router bgp 4
+ bgp router-id 23.23.23.23
+ bgp log-neighbor-changes
+ bgp confederation identifier 1000
+ neighbor 2221:2946:1::21 remote-as 4
+ neighbor 2221:2946:1::21 update-source Loopback0
+ neighbor 130.0.0.21 remote-as 4
+ neighbor 130.0.0.21 update-source Loopback0
+ !
+ address-family ipv4
+  no neighbor 2221:2946:1::21 activate
+  neighbor 130.0.0.21 activate
+  neighbor 130.0.0.21 route-reflector-client
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2221:2946:1::21 activate
+  neighbor 2221:2946:1::21 route-reflector-client
+ exit-address-family
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+no cdp log mismatch duplex
+ipv6 router ospf 1
+ router-id 23.23.23.23
+ area 4 stub
+ passive-interface Loopback0
+!
+!
+!
+!
+control-plane
+!
+!
+!
+mgcp profile default
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+ transport input all
+!
+!
+end

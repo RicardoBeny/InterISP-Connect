@@ -1,0 +1,177 @@
+
+!
+upgrade fpd auto
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R20
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 130.0.0.20 255.255.255.255
+ ip ospf 1 area 2
+ ipv6 address FE80::20 link-local
+ ipv6 address 2221:2946:1::20/128
+ ipv6 ospf 1 area 2
+!
+interface FastEthernet0/0
+ ip address 130.0.1.117 255.255.255.252
+ ip ospf 1 area 2
+ duplex auto
+ speed auto
+ ipv6 address FE80::20 link-local
+ ipv6 address 2221:2946:1:30::1/64
+ ipv6 ospf 1 area 2
+!
+interface FastEthernet0/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet1/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet1/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet2/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet2/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+router ospf 1
+ router-id 20.20.20.20
+ area 2 stub
+ passive-interface Loopback0
+ network 130.0.1.116 0.0.0.3 area 2
+!
+router bgp 2
+ bgp router-id 20.20.20.20
+ bgp log-neighbor-changes
+ bgp confederation identifier 1000
+ neighbor 2221:2946:1::8 remote-as 2
+ neighbor 2221:2946:1::8 update-source Loopback0
+ neighbor 2221:2946:1::19 remote-as 2
+ neighbor 2221:2946:1::19 update-source Loopback0
+ neighbor 130.0.0.8 remote-as 2
+ neighbor 130.0.0.8 update-source Loopback0
+ neighbor 130.0.0.19 remote-as 2
+ neighbor 130.0.0.19 update-source Loopback0
+ !
+ address-family ipv4
+  no neighbor 2221:2946:1::8 activate
+  no neighbor 2221:2946:1::19 activate
+  neighbor 130.0.0.8 activate
+  neighbor 130.0.0.8 route-reflector-client
+  neighbor 130.0.0.19 activate
+  neighbor 130.0.0.19 route-reflector-client
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2221:2946:1::8 activate
+  neighbor 2221:2946:1::8 route-reflector-client
+  neighbor 2221:2946:1::19 activate
+  neighbor 2221:2946:1::19 route-reflector-client
+ exit-address-family
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+no cdp log mismatch duplex
+ipv6 router ospf 1
+ router-id 20.20.20.20
+ area 2 stub
+ passive-interface Loopback0
+!
+!
+!
+!
+control-plane
+!
+!
+!
+mgcp profile default
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+ transport input all
+!
+!
+end
